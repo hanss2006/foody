@@ -3,14 +3,8 @@ package com.hanss.foody.domain.meal;
 import com.hanss.foody.domain.product.Product;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -25,14 +19,14 @@ public class Meal {
     private Float fats;
     private Float carbohydrates;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
             name = "meal_product",
             joinColumns = @JoinColumn(
                     name = "meal_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "profuct_id", referencedColumnName = "id"))
-    private Set<Product> products;
+    private Set<Product> products = new HashSet<>();
     private String iconUrl;
 
     @Lob
