@@ -32,9 +32,9 @@ public class Meal {
     @JoinTable(
             name = "meal_product",
             joinColumns = @JoinColumn(
-                    name = "meal_id", referencedColumnName = "id"),
+                    name = "MEAL_ID", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
-                    name = "profuct_id", referencedColumnName = "id"))
+                    name = "PRODUCT_ID", referencedColumnName = "id"))
     private Set<Product> products = new HashSet<>();
     private String iconUrl;
 

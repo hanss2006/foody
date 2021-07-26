@@ -14,15 +14,17 @@ public class Store {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "MEAL_ID")
     private Long mealId;
     @ManyToOne
-    @JoinColumn(name = "mealId", insertable = false, updatable = false)
+    @JoinColumn(name = "MEAL_ID", insertable = false, updatable = false)
     private Meal meal;
 
     private Float quantity;
 
+    @Column(name = "UNIT_ID")
     private Long unitId;
     @ManyToOne
-    @JoinColumn(name = "unitId", insertable = false, updatable = false)
+    @JoinColumn(name = "UNIT_ID", insertable = false, updatable = false)
     private Unit unit;
 }
