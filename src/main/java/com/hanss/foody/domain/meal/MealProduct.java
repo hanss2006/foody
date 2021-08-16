@@ -13,9 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+@IdClass(MealProductPK.class)
 @Data
 @Entity
-@IdClass(MealProductPK.class)
 @Table(name = "MEAL_PRODUCT")
 public class MealProduct implements Serializable {
 /*
