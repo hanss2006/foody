@@ -8,6 +8,6 @@ import java.util.List;
 
 @CrossOrigin
 @Repository
-public interface MealProductRepository extends JpaRepository<MealProduct, MealProductPK> {
+public interface MealProductRepository extends JpaRepository<MealProduct, Long> {
     List<MealProduct> findByMealId(Long mealId);
 }
