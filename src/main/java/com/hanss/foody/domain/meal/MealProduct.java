@@ -1,8 +1,10 @@
 package com.hanss.foody.domain.meal;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.hanss.foody.domain.product.Product;
 import com.hanss.foody.domain.unit.Unit;
 import lombok.Data;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,10 +28,18 @@ public class MealProduct implements Serializable {
     @Column(name = "MEAL_ID")
     @JsonProperty("mealId")
     private Long mealId;
+    @ManyToOne
+    @JoinColumn(name = "MEAL_ID", insertable = false, updatable = false)
+    @RestResource(path = "meal", rel="meal")
+    private Meal meal;
 
     @Column(name = "PRODUCT_ID")
     @JsonProperty("productId")
     private Long productId;
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID", insertable = false, updatable = false)
+    @RestResource(path = "product", rel="product")
+    private Product product;
 
     private Float quantity;
 
@@ -37,5 +47,6 @@ public class MealProduct implements Serializable {
     private Long unitId;
     @ManyToOne
     @JoinColumn(name = "UNIT_ID", insertable = false, updatable = false)
+    @RestResource(path = "unit", rel="unit")
     private Unit unit;
 }
