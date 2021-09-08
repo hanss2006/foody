@@ -13,4 +13,6 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
 
     @Query("select m from Meal m left join m.products products where products.id = ?1")
     List<Meal> findByProductTypeId(Long id);
+
+    List<Meal> findByNameContainingIgnoreCase(String name);
 }

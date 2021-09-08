@@ -9,5 +9,7 @@ import java.util.List;
 @CrossOrigin
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByName(@Param("name") String name);
+
+    List<Product> findByNameContainingIgnoreCase(String name);
 }
 
