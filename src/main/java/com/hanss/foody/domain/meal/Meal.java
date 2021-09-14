@@ -1,8 +1,9 @@
 package com.hanss.foody.domain.meal;
 
 import com.hanss.foody.domain.product.Product;
+import com.hanss.foody.domain.store.Store;
 import lombok.Data;
-
+import org.hibernate.annotations.Formula;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -27,6 +30,14 @@ public class Meal {
     private Float proteins;
     private Float fats;
     private Float carbohydrates;
+    private String iconUrl;
+
+    @Lob
+    private String recipe;
+    private Boolean enabled;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "meal")
+    private List<Store> stores;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
@@ -36,11 +47,7 @@ public class Meal {
             inverseJoinColumns = @JoinColumn(
                     name = "PRODUCT_ID", referencedColumnName = "id"))
     private Set<Product> products = new HashSet<>();
-    private String iconUrl;
 
-    @Lob
-    private String recipe;
-
-    private Boolean enabled;
-
+    @Formula("(select COUNT(s.id) > 0 from store s where s.meal_id = id)")
+    private Boolean stored;
 }
